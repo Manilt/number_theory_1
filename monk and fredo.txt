@@ -1,0 +1,30 @@
+cache = {}
+for _ in range(input()):
+    a,b,d = map(int, raw_input().split())
+    if (a,b,d) in cache:
+        print cache[(a,b,d)]
+        continue
+    ma = max(a,b)
+    mi = min(a,b)
+    if d==0:
+        print 1
+    elif mi>d:
+        print 0
+    elif ma>d and mi<d:
+        if d%mi ==0:
+            print 1
+        else:
+            print 0
+    else:
+        c = {}
+        count = 0
+        while (d-(ma*count)) >= 0 and ((d-(ma*count))%mi not in c):
+            c[(d-(ma*count))%mi] = (d-(ma*count))
+            count += 1
+        if 0 not in c:
+            cache[(a,b,d)] = 0
+            print 0
+        else:
+            start = c[0]
+            cache[(a,b,d)]=(start//(ma*count))+1
+            print (start//(ma*count))+1
